@@ -12,17 +12,14 @@ class CURSED_WINDOW:
 		self.y = y
 		self.title = json_data["name"]
 		self.json = json_data
-		self.options = []
-
-	def add_options(self):
-		for new_option in self.json["options"]:
-			self.options.append(new_option)
 	
 	# function to navigate and display the options
 	def navigate(self, window):
 		select = 0
 		while True:
+			# get number of options for looping
 			num_options = len(self.json["options"])
+			# loop through options and display them with seceted item being highlighted
 			for o in range(num_options):
 				str = self.json["options"][o]["name"]
 				if o == select:
@@ -30,14 +27,18 @@ class CURSED_WINDOW:
 				else:
 					window.addstr(int(self.y/2)+1+o, 2, str, curses.A_NORMAL)
 
+			# get keyboard input
 			c = window.getch()
+			# quite if q is pressed
 			if c == ord('q'):
 				break # exit
+			# move down if s or down arrow are pushed
 			elif c == ord('s') or c == curses.KEY_DOWN:
 				if select == num_options-1:
 					select = 0
 				else:
 					select = select + 1
+			# move up if w or up arrow are pushed
 			elif c == ord('w') or c == curses.KEY_UP:
 				if select == 0:
 					select = num_options-1
