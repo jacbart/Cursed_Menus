@@ -8,9 +8,13 @@ import curses
 
 class CURSED_WINDOW:
 	def __init__(self, x, y, json_data):
+		# Width
 		self.x = x
+		# Height
 		self.y = y
+		# Title of program
 		self.title = json_data["name"]
+		# Rest of the json data
 		self.json = json_data
 	
 	# function to navigate and display the options
@@ -47,6 +51,7 @@ class CURSED_WINDOW:
 			
 			window.refresh()
 	
+	# Creates a window with an output display and leaves room for options
 	def create_window(self):
 		window = curses.newwin(self.y, self.x, 0, 0)
 		window.border(0)
