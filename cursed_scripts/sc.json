@@ -1,39 +1,43 @@
 {
-    "sc": {
-        "name" : "Secure Connect",
-        "options": {
-            "dor" : {
-                "name" : "Digital Ocean Resume Droplet",
-                "commands" : {},
-                "discription" : "SSH connect to Resume droplet on digital ocean"
+    "name" : "Secure Connect",
+    "command" : "sc",
+    "options": [
+        {
+            "command" : "dor",
+            "name" : "Digital Ocean Resume Droplet",
+            "commands" : {},
+            "discription" : "SSH connect to Resume droplet on digital ocean"
+        },
+        {
+            "command" : "ex",
+            "name" : "ExpressVPN Smart Connect",
+            "commands" : {
+                "-c" : "Connect",
+                "-d" : "Disconnect"
             },
-            "ex" : {
-                "name" : "ExpressVPN Smart Connect",
-                "commands" : {
-                    "-c" : "Connect",
-                    "-d" : "Disconnect"
-                },
-                "discription" : "ExpressVPN pass through command, connect option is smart location"
+            "discription" : "ExpressVPN pass through command, connect option is smart location"
+        },
+        {
+            "command" : "syn",
+            "name" : "Synergy",
+            "commands" : {
+                "start" : "Start synergy.service",
+                "stop" : "Stop synergy.service",
+                "status" : "Show synergy.service status"
             },
-            "syn" : {
-                "name" : "Synergy",
-                "commands" : {
-                    "start" : "Start synergy.service",
-                    "stop" : "Stop synergy.service",
-                    "status" : "Show synergy.service status"
-                },
-                "discription" : "Start and stop the service for Synergy, a program to use mouse and keyboard over wifi"
-            },
-            "add" : {
-                "name" : "Add new command",
-                "commands" : {},
-                "discription" : "Add a new command to the Secure Connect script"
-            },
-            "help" : {
-                "name" : "Help Text",
-                "commands" : {},
-                "discription" : "Display the help text for Secure Connect"
-            }
+            "discription" : "Start and stop the service for Synergy, a program to use mouse and keyboard over wifi"
+        },
+        {
+            "command" : "--add",
+            "name" : "Add new command",
+            "commands" : {},
+            "discription" : "Add a new command to the Secure Connect script"
+        },
+        {
+            "command" : "--help",
+            "name" : "Help Text",
+            "commands" : {},
+            "discription" : "Display the help text for Secure Connect"
         }
-    }
+    ]
 }
