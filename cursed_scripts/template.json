@@ -1,0 +1,21 @@
+{
+    "name" : "name",
+    "command" : "command",
+    "options": [
+        {
+            "command" : "command",
+            "name" : "name",
+            "commands" : {},
+            "discription" : "discription"
+        },
+        {
+            "command" : "command",
+            "name" : "name",
+            "commands" : [
+                {"-option1" : "name of option"},
+                {"-option2" : "name of option"}
+            ],
+            "discription" : "discription"
+        }
+    ]
+}
