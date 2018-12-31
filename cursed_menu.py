@@ -20,16 +20,31 @@ class CURSED_WINDOW:
 	
 	# function to navigate and display the options
 	def navigate(self, window):
+		select = 0
 		while True:
-			window.refresh()
 			num_options = len(self.json["options"])
 			for o in range(num_options):
-				str = self.json["options"][o]["command"]
-				window.addstr(int(self.y/2)+1+o, 2, str)
+				str = self.json["options"][o]["name"]
+				if o == select:
+					window.addstr(int(self.y/2)+1+o, 2, str, curses.A_STANDOUT)
+				else:
+					window.addstr(int(self.y/2)+1+o, 2, str, curses.A_NORMAL)
 
 			c = window.getch()
 			if c == ord('q'):
 				break # exit
+			elif c == ord('s') or c == curses.KEY_DOWN:
+				if select == num_options-1:
+					select = 0
+				else:
+					select = select + 1
+			elif c == ord('w') or c == curses.KEY_UP:
+				if select == 0:
+					select = num_options-1
+				else:
+					select = select - 1
+			
+			window.refresh()
 	
 	def create_window(self):
 		window = curses.newwin(self.y, self.x, 0, 0)
