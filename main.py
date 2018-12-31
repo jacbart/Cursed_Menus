@@ -1,4 +1,8 @@
+# Title: Cursed Menus
+# Created by: Jack Bartlett
+
 from os import system
+import sys
 import curses
 
 class CURSED_WINDOW:
@@ -7,23 +11,47 @@ class CURSED_WINDOW:
 		self.y = y
 		self.options = []
 
-	def create_window():
+	def create_window(self):
+		output = curses.newwin(self.y, self.x, 0, 0)
+		output.border(0)
+		output.refresh()
+		output.getch()
+
+
 
 
 def main():
+	# initialising curses
 	screen = curses.initscr()
 	curses.noecho()
 	curses.cbreak()
 	screen.keypad(True)
-	
-	
+	curses.curs_set(0)
 
+	# get dimensions of screen
+	dims = screen.getmaxyx()
+	screenX = dims[1]
+	screenY = dims[0]	
+
+	# setup screen
+	screen.clear()
+	screen.refresh()
+
+	#create window
+	mainscr = CURSED_WINDOW(screenX, screenY)
+	mainscr.create_window()
+	screen.refresh()
+
+	# clean up curses before exiting
 	curses.nocbreak()
 	screen.keypad(False)
 	curses.echo()
 	curses.endwin()
 
-curses.wrapper(main)
+if __name__ == "__main__":
+	main()
+
+
 # def get_param(prompt_string):
 # 	screen.clear()
 # 	screen.border(0)
