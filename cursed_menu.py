@@ -17,25 +17,34 @@ class CURSED_WINDOW:
 		# Rest of the json data
 		self.json = json_data
 	
-	# function to navigate and display the options
-	def navigate(self, window):
-		select = 0
-		while True:
-			# get number of options for looping
-			num_options = len(self.json["options"])
+	def window_draw(self, window, output, n, select):
+		discription = self.json["options"][select]["discription"]
 			# loop through options and display them with seceted item being highlighted
-			for o in range(num_options):
-				str = self.json["options"][o]["name"]
-				if o == select:
-					window.addstr(int(self.y/2)+1+o, 2, str, curses.A_STANDOUT)
-				else:
-					window.addstr(int(self.y/2)+1+o, 2, str, curses.A_NORMAL)
-
+		for o in range(n):
+			str = self.json["options"][o]["name"]
+			output.addstr(1, 2, discription)
+			if o == select:
+				window.addstr(int(self.y/2)+1+o, 2, str, curses.A_STANDOUT)
+			else:
+				window.addstr(int(self.y/2)+1+o, 2, str, curses.A_NORMAL)
+		output.refresh()
+		window.refresh()
+	
+	# function to navigate and display the options
+	def navigate(self, window, output):
+		select = 0
+		# get number of options for looping
+		num_options = len(self.json["options"])
+		self.window_draw(window, output, num_options, select)
+		while True:
 			# get keyboard input
 			c = window.getch()
 			# quite if q is pressed
 			if c == ord('q'):
 				break # exit
+			# elif c == curses.KEY_ENTER:
+				# strEnter = self.json["options"][select]["name"]
+				# window.addstr(0, 0, strEnter)
 			# move down if s or down arrow are pushed
 			elif c == ord('s') or c == curses.KEY_DOWN:
 				if select == num_options-1:
@@ -48,12 +57,13 @@ class CURSED_WINDOW:
 					select = num_options-1
 				else:
 					select = select - 1
+			self.window_draw(window, output, num_options, select)
 			
-			window.refresh()
-	
 	# Creates a window with an output display and leaves room for options
 	def create_window(self):
 		window = curses.newwin(self.y, self.x, 0, 0)
+		window.nodelay(0)
+		window.keypad(True)
 		window.border(0)
 		window.addstr(0, 2, self.title, curses.A_BOLD)
 		window.refresh()
@@ -63,7 +73,8 @@ class CURSED_WINDOW:
 		output.border(0)
 		output.refresh()
 
-		self.navigate(window)
+		self.navigate(window, output)
+		window.keypad(False)
 
 def main():
 	# initialising curses
