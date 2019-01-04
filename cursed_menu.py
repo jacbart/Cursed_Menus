@@ -19,7 +19,12 @@ class CURSED_WINDOW:
 	
 	def window_draw(self, window, output, n, select):
 		discription = self.json["options"][select]["discription"]
-			# loop through options and display them with seceted item being highlighted
+
+		output.clear()
+		output.border(0)
+		output.refresh()
+
+		# loop through options and display them with seceted item being highlighted
 		for o in range(n):
 			str = self.json["options"][o]["name"]
 			output.addstr(1, 2, discription)
@@ -27,6 +32,7 @@ class CURSED_WINDOW:
 				window.addstr(int(self.y/2)+1+o, 2, str, curses.A_STANDOUT)
 			else:
 				window.addstr(int(self.y/2)+1+o, 2, str, curses.A_NORMAL)
+		
 		output.refresh()
 		window.refresh()
 	
@@ -42,9 +48,10 @@ class CURSED_WINDOW:
 			# quite if q is pressed
 			if c == ord('q'):
 				break # exit
-			# elif c == curses.KEY_ENTER:
-				# strEnter = self.json["options"][select]["name"]
-				# window.addstr(0, 0, strEnter)
+			elif c == curses.KEY_ENTER or c == ord('c'):
+				strEnter = self.json["options"][select]["name"]
+				output.addstr(5, 2, strEnter, curses.A_NORMAL)
+				output.refresh()
 			# move down if s or down arrow are pushed
 			elif c == ord('s') or c == curses.KEY_DOWN:
 				if select == num_options-1:
@@ -62,10 +69,14 @@ class CURSED_WINDOW:
 	# Creates a window with an output display and leaves room for options
 	def create_window(self):
 		window = curses.newwin(self.y, self.x, 0, 0)
+
 		window.nodelay(0)
 		window.keypad(True)
 		window.border(0)
+
 		window.addstr(0, 2, self.title, curses.A_BOLD)
+		window.addstr(self.y-1, self.x-16, "press q to quit", curses.A_NORMAL)
+
 		window.refresh()
 		window.touchwin()
 
