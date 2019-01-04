@@ -3,6 +3,7 @@
 
 from os import system
 import sys
+import string
 import json
 import curses
 
@@ -12,6 +13,10 @@ class CURSED_WINDOW:
 		self.x = x
 		# Height
 		self.y = y
+		# Height of displayable space for output screen
+		self.rows = int(self.y/2)-1
+		# Width of displayable space for output screen
+		self.columes = self.x-5
 		# Title of program
 		self.title = json_data["name"]
 		# Rest of the json data
@@ -19,15 +24,19 @@ class CURSED_WINDOW:
 	
 	def window_draw(self, window, output, n, select):
 		discription = self.json["options"][select]["discription"]
+		formatted_discription = discription.split("\\n")
 
 		output.clear()
 		output.border(0)
 		output.refresh()
 
+		for row in range(len(formatted_discription)):
+			output.addstr(row+1, 2, formatted_discription[row])
+
+
 		# loop through options and display them with seceted item being highlighted
 		for o in range(n):
 			str = self.json["options"][o]["name"]
-			output.addstr(1, 2, discription)
 			if o == select:
 				window.addstr(int(self.y/2)+1+o, 2, str, curses.A_STANDOUT)
 			else:
@@ -95,9 +104,15 @@ def main():
 	screen.keypad(True)
 	curses.curs_set(0)
 
-	# read in json data
-	with open('cursed_scripts/'+'sc'+'.json') as f:
-		json_data = json.load(f)
+	if len(sys.argv) == 1:
+		# read in json data
+		with open('cursed_scripts/'+'default'+'.json') as f:
+			json_data = json.load(f)
+	else:
+		# read in json data
+		script_name = sys.argv[1]
+		with open('cursed_scripts/'+script_name+'.json') as f:
+			json_data = json.load(f)
 
 	# get dimensions of screen
 	dims = screen.getmaxyx()

@@ -37,7 +37,7 @@
             "command" : "--help",
             "name" : "Help Text",
             "commands" : {},
-            "discription" : "Display the help text for Secure Connect"
+            "discription" : "Secure Connect Usage: sc {-Option/Command-}\\n\\nOptions:\\ndor               Digital Ocean: Resume droplet\\nex                ExpressVPN: Smart connect\\nsynergy,-syn      [start, stop] systemctl service for synergy.service\\n\\nCommands:\\n--help,-h         Display this help message\\n--add,-a          add new connection wizard"
         }
     ]
 }

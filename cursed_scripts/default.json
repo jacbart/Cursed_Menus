@@ -1,0 +1,21 @@
+{
+    "name" : "Cursed Menus",
+    "command" : "none",
+    "options": [
+        {
+            "command" : "sc",
+            "name" : "sc",
+            "commands" : {},
+            "discription" : "Secure Connect or sc is a script to make connecting to servers or other services easy."
+        },
+        {
+            "command" : "command",
+            "name" : "Another Script",
+            "commands" : [
+                {"-option1" : "name of option"},
+                {"-option2" : "name of option"}
+            ],
+            "discription" : "discription"
+        }
+    ]
+}
