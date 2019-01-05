@@ -8,7 +8,7 @@ import json
 import curses
 
 class CURSED_WINDOW:
-	def __init__(self, x, y, json_data):
+	def __init__(self, x, y, json_data, window_above):
 		# Width
 		self.x = x
 		# Height
@@ -21,18 +21,26 @@ class CURSED_WINDOW:
 		self.title = json_data["name"]
 		# Rest of the json data
 		self.json = json_data
+		# Link windows together for traversal
+		self.window_above = window_above
 	
 	def window_draw(self, window, output, n, select):
+		# Grab discription of selected object from json
 		discription = self.json["options"][select]["discription"]
+		# Spliting up the discription by \\n
 		formatted_discription = discription.split("\\n")
 
+		# Clearing, adding border back and refresh the output display
 		output.clear()
 		output.border(0)
 		output.refresh()
 
+		# Printing discription with formatting
 		for row in range(len(formatted_discription)):
-			output.addstr(row+1, 2, formatted_discription[row])
-
+			if row+1 <= self.rows:
+				output.addstr(row+1, 2, formatted_discription[row])
+			else:
+				break
 
 		# loop through options and display them with seceted item being highlighted
 		for o in range(n):
@@ -52,15 +60,15 @@ class CURSED_WINDOW:
 		num_options = len(self.json["options"])
 		self.window_draw(window, output, num_options, select)
 		while True:
+			is_enter = False
 			# get keyboard input
 			c = window.getch()
 			# quite if q is pressed
 			if c == ord('q'):
 				break # exit
-			elif c == curses.KEY_ENTER or c == ord('c'):
-				strEnter = self.json["options"][select]["name"]
-				output.addstr(5, 2, strEnter, curses.A_NORMAL)
-				output.refresh()
+			# if enter key is pushed
+			elif c == 10:
+				is_enter = True
 			# move down if s or down arrow are pushed
 			elif c == ord('s') or c == curses.KEY_DOWN:
 				if select == num_options-1:
@@ -124,7 +132,7 @@ def main():
 	screen.refresh()
 
 	#create window
-	mainscr = CURSED_WINDOW(screenX, screenY, json_data)
+	mainscr = CURSED_WINDOW(screenX, screenY, json_data, None)
 	mainscr.create_window()
 	screen.refresh()
 

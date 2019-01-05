@@ -1,43 +1,44 @@
 {
     "name" : "Secure Connect",
     "command" : "sc",
+    "discription" : "Secure Connect is a script that helps make connecting or starting a connection service easy",
     "options": [
         {
-            "command" : "dor",
             "name" : "Digital Ocean Resume Droplet",
-            "commands" : {},
-            "discription" : "SSH connect to Resume droplet on digital ocean"
+            "command" : "dor",
+            "discription" : "SSH connect to Resume droplet on digital ocean",
+            "options" : {}
         },
         {
-            "command" : "ex",
             "name" : "ExpressVPN Smart Connect",
-            "commands" : [
+            "command" : "ex",
+            "discription" : "ExpressVPN pass through command, connect option is smart location",
+            "options" : [
                 {"-c" : "Connect"},
                 {"-d" : "Disconnect"}
-            ],
-            "discription" : "ExpressVPN pass through command, connect option is smart location"
+            ]
         },
         {
-            "command" : "syn",
             "name" : "Synergy",
-            "commands" : [
+            "command" : "syn",
+            "discription" : "Start and stop the service for Synergy, a program to use mouse and keyboard over wifi",
+            "options" : [
                 {"start" : "Start synergy.service"},
                 {"stop" : "Stop synergy.service"},
                 {"status" : "Show synergy.service status"}
-            ],
-            "discription" : "Start and stop the service for Synergy, a program to use mouse and keyboard over wifi"
+            ]
         },
         {
-            "command" : "--add",
             "name" : "Add new command",
-            "commands" : {},
-            "discription" : "Add a new command to the Secure Connect script"
+            "command" : "--add",
+            "discription" : "Add a new command to the Secure Connect script",
+            "options" : {}
         },
         {
-            "command" : "--help",
             "name" : "Help Text",
-            "commands" : {},
-            "discription" : "Secure Connect Usage: sc {-Option/Command-}\\n\\nOptions:\\ndor               Digital Ocean: Resume droplet\\nex                ExpressVPN: Smart connect\\nsynergy,-syn      [start, stop] systemctl service for synergy.service\\n\\nCommands:\\n--help,-h         Display this help message\\n--add,-a          add new connection wizard"
+            "command" : "--help",
+            "discription" : "Secure Connect Usage: sc {-Option/Command-}\\n\\nOptions:\\ndor               Digital Ocean: Resume droplet\\nex                ExpressVPN: Smart connect\\nsynergy,-syn      [start, stop] systemctl service for synergy.service\\n\\nCommands:\\n--help,-h         Display this help message\\n--add,-a          add new connection wizard",
+            "options" : {}
         }
     ]
 }

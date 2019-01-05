@@ -1,21 +1,22 @@
 {
     "name" : "name",
     "command" : "command",
+    "discription" : "discription of command",
     "options": [
         {
-            "command" : "command",
             "name" : "name",
-            "commands" : {},
-            "discription" : "discription"
+            "command" : "command",
+            "discription" : "discription",
+            "commands" : {}
         },
         {
-            "command" : "command",
             "name" : "name",
+            "command" : "command",
+            "discription" : "discription",
             "commands" : [
                 {"-option1" : "name of option"},
                 {"-option2" : "name of option"}
-            ],
-            "discription" : "discription"
+            ]
         }
     ]
 }

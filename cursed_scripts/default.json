@@ -1,21 +1,22 @@
 {
     "name" : "Cursed Menus",
     "command" : "none",
+    "discription" : "Curses Menus's use JSON files to create a TUI.",
     "options": [
         {
-            "command" : "sc",
             "name" : "sc",
-            "commands" : {},
-            "discription" : "Secure Connect or sc is a script to make connecting to servers or other services easy."
+            "command" : "sc",
+            "discription" : "Secure Connect or sc is a script to make connecting to servers or other services easy.",
+            "commands" : {}
         },
         {
-            "command" : "command",
             "name" : "Another Script",
+            "command" : "command",
+            "discription" : "discription",
             "commands" : [
                 {"-option1" : "name of option"},
                 {"-option2" : "name of option"}
-            ],
-            "discription" : "discription"
+            ]
         }
     ]
 }
