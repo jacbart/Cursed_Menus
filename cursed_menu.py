@@ -3,6 +3,8 @@
 
 from os import system
 import sys
+import time
+import asyncio
 import string
 import json
 import curses
@@ -23,7 +25,19 @@ class CURSED_WINDOW:
 		self.json = json_data
 		# Link windows together for traversal
 		self.window_above = window_above
-	
+
+	def scroll_output(self, output, row, row_range, text):
+		# Printing discription with formatting
+		for row in range(row_range):
+			if row+1 < self.rows:
+				output.addstr(row+1, 2, text[row])
+				output.refresh()
+			else:
+				time.sleep(1)
+				output.addstr(1, 2, "testing")
+				#self.scroll_output(output, row+1, row_range, text)
+				break
+
 	def window_draw(self, window, output, n, select):
 		# Grab discription of selected object from json
 		discription = self.json["options"][select]["discription"]
@@ -35,12 +49,8 @@ class CURSED_WINDOW:
 		output.border(0)
 		output.refresh()
 
-		# Printing discription with formatting
-		for row in range(len(formatted_discription)):
-			if row+1 <= self.rows:
-				output.addstr(row+1, 2, formatted_discription[row])
-			else:
-				break
+		row_range = len(formatted_discription)
+		self.scroll_output(output, 0, row_range, formatted_discription)
 
 		# loop through options and display them with seceted item being highlighted
 		for o in range(n):
