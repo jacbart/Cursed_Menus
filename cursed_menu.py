@@ -49,9 +49,6 @@ class CURSED_WINDOW:
 		output.border(0)
 		output.refresh()
 
-		row_range = len(formatted_discription)
-		self.scroll_output(output, 0, row_range, formatted_discription)
-
 		# loop through options and display them with seceted item being highlighted
 		for o in range(n):
 			str = self.json["options"][o]["name"]
@@ -59,6 +56,9 @@ class CURSED_WINDOW:
 				window.addstr(int(self.y/2)+1+o, 2, str, curses.A_STANDOUT)
 			else:
 				window.addstr(int(self.y/2)+1+o, 2, str, curses.A_NORMAL)
+		
+		row_range = len(formatted_discription)
+		self.scroll_output(output, 0, row_range, formatted_discription)
 		
 		output.refresh()
 		window.refresh()
